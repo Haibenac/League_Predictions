@@ -9,10 +9,11 @@ All the data was sourced from a public dataset created by Oracle's Elixer found 
 **Name(s)**: Andrew Peng
 
 **Website Link**: https://haibenac.github.io/League_Predictions/
+
 ---
 ## Introduction and the Problem
 
-Within the game, League of Legends, the dominant (and the only) strategy is for the 5 players on each team to split into the same 5 roles every time. Those roles are top lane, mid lane, jungle, support, and bottom lane. However, on a sub-average League of Legends player such as myself, I find it difficult to truly understand what the difference between these roles is. Do they have a true difference or are they just fancy names to their titles that are indistinguishable from one another? Can I correctly classify what role a player played given their advanced stats, or are all of these metrics truly indistinguishable? Do players simply play the same game where the only thing that differs is where they play on the map? 
+Within the game, League of Legends, the dominant (and the only) strategy is for the 5 players on each team to split into the same 5 roles every time. Those roles are top lane, mid lane, jungle, support, and bottom lane. However, on a sub-average League of Legends player such as myself, I find it difficult to truly understand what the difference between these roles is. Do they have a true difference or are they just fancy names to their titles that are indistinguishable from one another? Can I correctly classify what role a player played given their advanced stats, or are all of these metrics truly indistinguishable? Do players simply play the same game where the only thing that differs is where they play on the map? Thus, **I want to understand if I can predict what role a player was playing given their advanced stats after the game has ended using a multiclass classifier**. As this prediction would be analyzing post-game stats, all information will be known to me apart from my response variable (position) which I will be trying to predict.
 
 To truly have a grasp and understand the patterns and characteristics of each of these roles, I will train a model that takes in advanced metrics of player data using the data gathered by Oracle's Elixer, specifically every professional match from 2023. Because I will be building a **multiclass classification** model that will take in a dataset and predict the role in which the given player played. The suitable metric to use to evaluate my model will be ***Accuracy*** as every single team is always made up of a single support player, a jungle player, a mid-laner, a top-laner, and a bottom-laner. **All the classes are balanced.** Thus, the number of False Negatives and False Positives will eventually add up to be the same value, causing every value to be relatively similar.
 
@@ -69,7 +70,6 @@ To more accurately account for statistics within a game without the variable of 
 | Blue   | sup        | Klanik Esport | Karma      |       0 |        2 |        10 |          13 |            7 |        0 |     0.0595359 |                    284.15  | 1.1945 |         0.0717161 | 0.4824 | 2.4349 |         21 |            17 |              4 |         2612 | 0           | 0.000765697 | 0.00382848 | 0.00650842 | 0.00153139 |
 
 
-The model I settled on to be used here was a **Random Forest Classifier** which is better at sifting through data and tuning the hyperparameters to their optimal values than a Decision Tree Classifier.
 
 ### Added Features
 Apart from the ***One Hot Encoded*** feature and the VSPM feature, every other feature was modified or added. First off, the KILLS, DEATHS, and ASSISTS columns were transformed by the GAMELENGTH column before being added back in as *kpt*, *dpt*, and *apt* (kills per time, deaths per time, and assists per time). This was done to prevent outliers from affecting the data. These three features were then *transformed* by using a **standard scaler** to pick out potential outliers that would help classify roles more accurately. 
@@ -99,7 +99,7 @@ In addition to the old features, many new features were added.
 
 <iframe src="assets/dmgmiti.html" width=800 height=600 frameBorder=0></iframe>
 
-In short, these features were chosen because they were either individually based (and not impacted by being clearly ahead of the enemy team) or a value that compared the player to the other members of their team. Each of these features splits the classes by giving them features that stand out for their respective role. For example, junglers will likely be easily identified by the Monster Kills by game time statistic. Top laners will likely be identified by the fact that hey have high minion kills by time, but also high damage mitigated per minute. 
+In short, these features were chosen because they were either individually based (and not impacted by being clearly ahead of the enemy team) or a value that compared the player to the other members of their team. Each of these features splits the classes by giving them features that stand out for their respective role. For example, junglers will likely be easily identified by the Monster Kills by game time statistic. Top laners will likely be identified by the fact that they have high minion kills by time, but also high damage mitigated per minute. **These added features helped separate the classes I am trying to predict**.
 
 ### Hyper Parameters
 The hyperparameters I want to tune are:
@@ -117,7 +117,7 @@ To select the best hyperparameters, I performed a GridSearchCV, which determined
 **n_estimators = 80**
 
 ### Model Performance
-After fitting the model, I compared and found the accuracy that the model had on the test data that had been split earlier. The stats are as follows:
+The model I settled on to be used here was a **Random Forest Classifier** which is better at sifting through data and tuning the hyperparameters to their optimal values than a Decision Tree Classifier. After fitting the model, I compared and found the accuracy that the model had on the test data that had been split earlier. The stats are as follows:
 
 Precision: 0.9688821583211146
 
@@ -144,6 +144,6 @@ Test Statistic: The difference in proportions of correct predictions between the
 
 Significance level: 1%
 
-After running a permutation test 1,000 times, I found a p-level of 0.0, meaning that the observed value found is indeed statistically significant. Thus, I can reject the null hypothesis and assume that this model still needs a little more work in correctly distinguishing the difference between the three lanes.
+After running a permutation test 1,000 times, I found a p-level of 0.0, meaning that the observed value found is indeed statistically significant. Thus, I can reject the null hypothesis. And look towards the alternative hypothesis. From the sample I used (League of Legends 2023 professional matches), it seems that my multiclass classifier struggles with correctly classifying group 1 in comparison to group 0. Perhaps my initial confusion is, in a way, justified: defining what role a player played given their post-game stats is confusing as some of the roles seem very similar to one another compared to other roles.
 
 <iframe src="assets/tvd.html" width=800 height=600 frameBorder=0></iframe>
