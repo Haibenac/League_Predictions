@@ -40,8 +40,11 @@ The nominal feature in this model is Champion. Given that there are over 160 cha
 The results of this model produced the following stats:
 
 Precision: 0.9206287421071575
+
 Recall: 0.9204249783174328
+
 F1: 0.9204686953680944
+
 Accuracy: 0.9204249783174328
 
 These are the stats run on the test data after the data was split. In general, I believe this model to be a good model overall. With a naive prediction (that being guessing every position as support or ADC), we would've seen an accuracy of exactly 20% because each position will always be one of the five roles required on the team. Thus, an accuracy of 0.92 is incredible in comparison. A large part of this model having high accuracy likely has to do with the Champion One Hot Encoder. Normally, Champions rarely fall outside of a single possible role. For example, Nautilus is almost exclusively used as a support champion While Aatrox is strongest when he is used in the Top Lane. This fact allows for a high initial accuracy. 
@@ -114,8 +117,11 @@ To select the best hyperparameters, I performed a GridSearchCV, which determined
 After fitting the model, I compared and found the accuracy that the model had on the test data that had been split earlier. The stats are as follows:
 
 Precision: 0.9688821583211146
+
 Recall: 0.9688855160450998
+
 F1: 0.9688762897894014
+
 Accuracy: 0.9688855160450998
 
 Although the initial model was already very strong, I still managed to improve the model by 5% compared to the baseline model. This final model improved the accuracy from 92% to 97%. Much of this was likely to improve the features that were used within the final model. They helped create more defined splits between the five roles and more accurately predict the role a player played given their post-game advanced statistics. 
