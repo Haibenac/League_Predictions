@@ -63,12 +63,13 @@ To more accurately account for statistics within a game without the variable of 
 | Blue   | sup        | Klanik Esport | Karma      |       0 |        2 |        10 |          13 |            7 |        0 |     0.0595359 |                    284.15  | 1.1945 |         0.0717161 | 0.4824 | 2.4349 |         21 |            17 |              4 |         2612 | 0           | 0.000765697 | 0.00382848 | 0.00650842 | 0.00153139 |
 
 
-The model I settled on to be used here was a Random Forest Classifier which is better at sifting through data and tuning the hyperparameters to their optimal values than a Decision Tree Classifier.
+The model I settled on to be used here was a **Random Forest Classifier** which is better at sifting through data and tuning the hyperparameters to their optimal values than a Decision Tree Classifier.
 
 ### Added Features
-Apart from the *One Hot Encoded* feature and the VSPM feature, every other feature was modified or added. First off, the KILLS, DEATHS, and ASSISTS columns were transformed by the GAMELENGTH column before being added back in as *kpt*, *dpt*, and *apt* (kills per time, deaths per time, and assists per time). This was done to prevent outliers from affecting the data. These three features were then *transformed* by using a standard scaler to pick out potential outliers that would help classify roles more accurately. 
+Apart from the ***One Hot Encoded*** feature and the VSPM feature, every other feature was modified or added. First off, the KILLS, DEATHS, and ASSISTS columns were transformed by the GAMELENGTH column before being added back in as *kpt*, *dpt*, and *apt* (kills per time, deaths per time, and assists per time). This was done to prevent outliers from affecting the data. These three features were then *transformed* by using a **standard scaler** to pick out potential outliers that would help classify roles more accurately. 
 
 In addition to the old features, many new features were added.
+
 - Damageshare: This feature was added because it created a clear break between two main groups: The laners versus everyone else. Theoretically, if everyone played the same, this value would be 20% for all players. However, there is a clear drop off in damage for both junglers and support players as their medians are fair below the 20% mark. **The feature was not encoded and was kept as is.**
 
 
@@ -92,6 +93,7 @@ In addition to the old features, many new features were added.
 
 <iframe src="assets/dmgmiti.html" width=800 height=600 frameBorder=0></iframe>
 
+In short, these features were chosen because they were either individually based (and not impacted by being clearly ahead of the enemy team) or a value that compared the player to the other members of their team. Each of these features splits the classes by giving them features that stand out for their respective role. For example, junglers will likely be easily identified by the Monster Kills by game time statistic. Top laners will likely be identified by the fact that hey have high minion kills by time, but also high damage mitigated per minute. 
 
 ### Hyper Parameters
 The hyperparameters I want to tune are:
@@ -102,6 +104,20 @@ The hyperparameters I want to tune are:
 - number of estimators
     - I chose estimators to help find the right balance between computational cost and improved performance, especially for the ensemble effect.
 
+To select the best hyperparameters, I performed a GridSearchCV, which determined that the most optimal outcomes would be:
+**max_depth = 150**
+**min_samples_split = 5**
+**n_estimators = 80**
+
 ### Model Performance
+After fitting the model, I compared and found the accuracy that the model had on the test data that had been split earlier. The stats are as follows:
+
+Precision: 0.9688821583211146
+Recall: 0.9688855160450998
+F1: 0.9688762897894014
+Accuracy: 0.9688855160450998
+
+Although the initial model was already very strong, I still managed to improve the model by 5% compared to the baseline model. This final model improved the accuracy from 92% to 97%.
+
 ---
 ## Fairness Analysis
