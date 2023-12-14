@@ -71,17 +71,21 @@ In addition to the old features, many new features were added.
 
 <iframe src="assets/dmgbypercent.html" width=800 height=600 frameBorder=0></iframe>
 
+
 - Minpt
   
 <iframe src="assets/minionkills.html" width=800 height=600 frameBorder=0></iframe>
+
 
 - Monpt
 
 <iframe src="assets/junglemonsterkills.html" width=800 height=600 frameBorder=0></iframe>
 
+
 - Damagemitigatedperminute
 
 <iframe src="assets/dmgmiti.html" width=800 height=600 frameBorder=0></iframe>
+
 
 ### Hyper Parameters
 The hyperparameters I want to tune are:
