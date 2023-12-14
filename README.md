@@ -47,6 +47,7 @@ Accuracy: 0.9204249783174328
 These are the stats run on the test data after the data was split. In general, I believe this model to be a good model overall. With a naive prediction (that being guessing every position as support or ADC), we would've seen an accuracy of exactly 20% because each position will always be one of the five roles required on the team. Thus, an accuracy of 0.92 is incredible in comparison. A large part of this model having high accuracy likely has to do with the Champion One Hot Encoder. Normally, Champions rarely fall outside of a single possible role. For example, Nautilus is almost exclusively used as a support champion While Aatrox is strongest when he is used in the Top Lane. This fact allows for a high initial accuracy. 
 
 However, this model can still be improved. As of right now, none of the current features are truly normalized to account for game length. Additionally, I can fine-tune hyperparameters to strengthen the accuracy that is returned.
+
 ---
 ## Final Model
 ### Model Description
@@ -59,9 +60,17 @@ In order to more accurately account for statistics within a game without the var
 | Blue   | bot        | Klanik Esport | Ezreal     |       5 |        1 |         7 |          13 |            7 |        0 |     0.441215  |                    234.372 | 0.3905 |         0.261862  | 8.4992 | 1.0796 |        370 |           345 |             25 |         2612 | 0.00191424  | 0.000382848 | 0.00267994 | 0.132083   | 0.00957121 |
 | Blue   | sup        | Klanik Esport | Karma      |       0 |        2 |        10 |          13 |            7 |        0 |     0.0595359 |                    284.15  | 1.1945 |         0.0717161 | 0.4824 | 2.4349 |         21 |            17 |              4 |         2612 | 0           | 0.000765697 | 0.00382848 | 0.00650842 | 0.00153139 |
 
+The model I settled on to be used here was a Random Forest Classifier which is better at sifting through data and tuning the hyperparameters to their optimal values than a Decision Tree Classifier.
 
 ### Added Features
-Apart from the *One Hot Encoded* feature 
+Apart from the *One Hot Encoded* feature and the VSPM feature, every other feature was modified or added. First off, the KILLS, DEATHS, and ASSISTS columns were transformed by the GAMELENGTH column before being added back in as *kpt*, *dpt*, and *apt* (kills per time, deaths per time, and assists per time). This was done to prevent outliers from affecting the data. These three features were then *transformed* by using a standard scaler to pick out potential outliers that would help classify roles more accurately. 
+
+In addition to the old features, many new features were added.
+- Damageshare: This feature
+- Minpt
+- Monpt
+- Damagemitigatedperminute
+
 ### Hyper Parameters
 The hyperparameters I want to tune are:
 - min samples split
