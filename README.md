@@ -52,6 +52,7 @@ However, this model can still be improved. As of right now, none of the current 
 ## Final Model
 ### Model Description
 In order to more accurately account for statistics within a game without the variable of time getting in the way, I had to first transform a few new features that involved normalizing kills, deaths, assists, minon kills, and monster kills by the game length. In the end, the dataframe for this final step looked like the following dataframe.
+
 | side   | position   | teamname      | champion   |   kills |   deaths |   assists |   teamkills |   teamdeaths |   barons |   damageshare |   damagemitigatedperminute |    wpm |   earnedgoldshare |   cspm |   vspm |   total cs |   minionkills |   monsterkills |   gamelength |         kpt |         dpt |        apt |      minpt |      monpt |
 |:-------|:-----------|:--------------|:-----------|--------:|---------:|----------:|------------:|-------------:|---------:|--------------:|---------------------------:|-------:|------------------:|-------:|-------:|-----------:|--------------:|---------------:|-------------:|------------:|------------:|-----------:|-----------:|-----------:|
 | Blue   | top        | Klanik Esport | Jax        |       4 |        0 |         6 |          13 |            7 |        0 |     0.150027  |                    878.913 | 0.4594 |         0.295868  | 9.1654 | 1.1256 |        399 |           367 |             32 |         2612 | 0.00153139  | 0           | 0.00229709 | 0.140505   | 0.0122511  |
