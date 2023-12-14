@@ -9,7 +9,8 @@ All the data was sourced from a public dataset created by Oracle's Elixer found 
 **Name(s)**: Andrew Peng (apeng@ucsd.edu)
 
 **Website Link**: [Link](https://haibenac.github.io/League_Predictions/) 
-**Exploratory Data Analysis Link (also done on this dataset): [Link](https://haibenac.github.io/League-Of-Legends-2023-Analysis/)
+
+**Exploratory Data Analysis Link (also done on this dataset)**: [Link](https://haibenac.github.io/League-Of-Legends-2023-Analysis/)
 
 ---
 ## Introduction and the Problem
