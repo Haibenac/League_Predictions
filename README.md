@@ -20,6 +20,7 @@ Additionally, the ***position*** column will be used as the **response variable*
 
 To make a more rational prediction, I cleaned my dataset by removing large swaths of data that were related more to a team's success in the game rather than the individuals themselves. This will hopefully reduce the amount of variation between the roles. For example, if a team is defeating another team by a large margin, I would expect stats like "gold difference at the 15-minute mark" to be a useless metric in determining the role that the current player is playing. Thus, I focused on features that were more team-orientated.
 
+
 | side   | position   | teamname      | champion   |   kills |   deaths |   assists |   teamkills |   teamdeaths |   barons |   damageshare |   damagemitigatedperminute |    wpm |   earnedgoldshare |   cspm |   vspm |   total cs |   minionkills |   monsterkills |   gamelength |
 |:-------|:-----------|:--------------|:-----------|--------:|---------:|----------:|------------:|-------------:|---------:|--------------:|---------------------------:|-------:|------------------:|-------:|-------:|-----------:|--------------:|---------------:|-------------:|
 | Blue   | top        | Klanik Esport | Jax        |       4 |        0 |         6 |          13 |            7 |        0 |     0.150027  |                    878.913 | 0.4594 |         0.295868  | 9.1654 | 1.1256 |        399 |           367 |             32 |         2612 |
@@ -27,6 +28,8 @@ To make a more rational prediction, I cleaned my dataset by removing large swath
 | Blue   | mid        | Klanik Esport | Taliyah    |       2 |        2 |        11 |          13 |            7 |        0 |     0.283899  |                    323.729 | 0.5283 |         0.225914  | 7.7412 | 1.1256 |        337 |           287 |             50 |         2612 |
 | Blue   | bot        | Klanik Esport | Ezreal     |       5 |        1 |         7 |          13 |            7 |        0 |     0.441215  |                    234.372 | 0.3905 |         0.261862  | 8.4992 | 1.0796 |        370 |           345 |             25 |         2612 |
 | Blue   | sup        | Klanik Esport | Karma      |       0 |        2 |        10 |          13 |            7 |        0 |     0.0595359 |                    284.15  | 1.1945 |         0.0717161 | 0.4824 | 2.4349 |         21 |            17 |              4 |         2612 |
+
+
 ---
 ## Baseline Model
 ### Model Description
