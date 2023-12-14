@@ -4,7 +4,7 @@ All the data was sourced from a public dataset created by Oracle's Elixer found 
 
 ---
 
-## League Of Legends: Can Stats Make the Role?
+## League Of Legends: Do Stats Make the Role?
 
 **Name(s)**: Andrew Peng
 
