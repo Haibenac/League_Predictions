@@ -14,9 +14,9 @@ All the data was sourced from a public dataset created by Oracle's Elixer found 
 
 Within the game, League of Legends, the dominant (and the only) strategy is for the 5 players on each team to split into the same 5 roles every time. Those roles are top lane, mid lane, jungle, support, and bottom lane. However, on a sub-average League of Legends player such as myself, I find it difficult to truly understand what the difference between these roles is. Do they have a true difference or are they just fancy names to their titles that are indistinguishable from one another? Can I correctly classify what role a player played given their advanced stats, or are all of these metrics truly indistinguishable? Do players simply play the same game where the only thing that differs is where they play on the map? 
 
-To truly have a grasp and understand the patterns and characteristics of each of these roles, I will train a model that takes in advanced metrics of player data using the data gathered by Oracle's Elixer, specifically every professional match from 2023. Because I will be building a *multiclass classification* model that will take in a dataset and predict the role in which the given player played. The suitable metric to use to evaluate my model will be *Accuracy* as every single team is always made up of a single support player, a jungle player, a mid-laner, a top-laner, and a bottom-laner. Thus, the number of False Negatives and False Positives will eventually add up to be the same value, causing every value to be relatively similar.
+To truly have a grasp and understand the patterns and characteristics of each of these roles, I will train a model that takes in advanced metrics of player data using the data gathered by Oracle's Elixer, specifically every professional match from 2023. Because I will be building a **multiclass classification** model that will take in a dataset and predict the role in which the given player played. The suitable metric to use to evaluate my model will be ***Accuracy*** as every single team is always made up of a single support player, a jungle player, a mid-laner, a top-laner, and a bottom-laner. **All the classes are balanced.** Thus, the number of False Negatives and False Positives will eventually add up to be the same value, causing every value to be relatively similar.
 
-Additionally, the *position* column will be used as the response variable as it is already nicely encoded with each player's role within the game. since this is a multiclass classification model, this column will not be changed.
+Additionally, the ***position*** column will be used as the **response variable** as it is already nicely encoded with each player's role within the game. since this is a multiclass classification model, this column will not be changed.
 
 To make a more rational prediction, I cleaned my dataset by removing large swaths of data that were related more to a team's success in the game rather than the individuals themselves. This will hopefully reduce the amount of variation between the roles. For example, if a team is defeating another team by a large margin, I would expect stats like "gold difference at the 15-minute mark" to be a useless metric in determining the role that the current player is playing. Thus, I focused on features that were more team-orientated.
 
@@ -30,12 +30,12 @@ To make a more rational prediction, I cleaned my dataset by removing large swath
 ---
 ## Baseline Model
 ### Model Description
-This Baseline model will be a Decision Tree Classifier used to predict a player's role given their advanced stats post-game. The features that have been selected for this model are ‘kills’, ‘deaths’, ‘assists’, 'champion', and 'vspm' (Vision Score Per Minute).
+This Baseline model will be a **Decision Tree Classifier** used to predict a player's role given their advanced stats post-game. The features that have been selected for this model are ‘kills’, ‘deaths’, ‘assists’, 'champion', and 'vspm' (Vision Score Per Minute).
 ### Features
 #### Quantitative
 The quantitative features in this model are Kills, Deaths, Assists, and VSPM (Vision Score Per Minute). Normally, kills, assists, and deaths are an easy way to see a player's performance. These quantitative values were kept raw for simplicity. They will be used in conjunction with the following nominal feature for the baseline Decision Tree Classifier model.
 #### Nominal
-The nominal feature in this model is Champion. Given that there are over 160 champions in League of Legends, this column will be One Hot Encoded using a pipeline.
+The nominal feature in this model is Champion. Given that there are over 160 champions in League of Legends, this column will be **One Hot Encoded** using a pipeline.
 ### Model Performance
 The results of this model produced the following stats:
 
@@ -69,25 +69,25 @@ The model I settled on to be used here was a Random Forest Classifier which is b
 Apart from the *One Hot Encoded* feature and the VSPM feature, every other feature was modified or added. First off, the KILLS, DEATHS, and ASSISTS columns were transformed by the GAMELENGTH column before being added back in as *kpt*, *dpt*, and *apt* (kills per time, deaths per time, and assists per time). This was done to prevent outliers from affecting the data. These three features were then *transformed* by using a standard scaler to pick out potential outliers that would help classify roles more accurately. 
 
 In addition to the old features, many new features were added.
-- Damageshare: This feature
+- Damageshare: This feature was added because it created a clear break between two main groups: The laners versus everyone else. Theoretically, if everyone played the same, this value would be 20% for all players. However, there is a clear drop off in damage for both junglers and support players as their medians are fair below the 20% mark. **The feature was not encoded and was kept as is.**
 
 
 <iframe src="assets/dmgbypercent.html" width=800 height=600 frameBorder=0></iframe>
 
 
-- Minpt
+- Minpt: Also known as minion kills per time, this stat was used and created a much larger distinction between the two groups than damageshare did. Here, we see the two groups clearly outlined below. Once again, both junglers and support players have few to no minion kills when it is normalized by time. In comparison, the laners tend to have the lion's share of minion kills. This gives a clear split and helps the model more accurately define laners from other roles. **This feature was encoded by the standard scaler.**
 
   
 <iframe src="assets/minionkills.html" width=800 height=600 frameBorder=0></iframe>
 
 
-- Monpt
+- Monpt: Also known as jungle monster kills per time. This stat clearly let junglers stand out as they were the clear dominant force within this stat. This gives a clear split and helps the model more accurately define junglers. **This feature was encoded by the standard scaler.**
 
 
 <iframe src="assets/junglemonsterkills.html" width=800 height=600 frameBorder=0></iframe>
 
 
-- Damagemitigatedperminute
+- Damagemitigatedperminute: While I thought that support players and top laners would be the main tanks, this was not the case. Instead, while I was correct with my top laner assumption, junglers tended to be the other main tanks of the dataset. This creates another correlation between a feature and a new group consisting of top laners and jungles that helps distinguish the categories again. **This feature was encoded by the standard scaler.**
 
 
 <iframe src="assets/dmgmiti.html" width=800 height=600 frameBorder=0></iframe>
