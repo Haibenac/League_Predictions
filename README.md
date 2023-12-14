@@ -51,7 +51,8 @@ However, this model can still be improved. As of right now, none of the current 
 ---
 ## Final Model
 ### Model Description
-In order to more accurately account for statistics within a game without the variable of time getting in the way, I had to first transform a few new features that involved normalizing kills, deaths, assists, minon kills, and monster kills by the game length. In the end, the dataframe for this final step looked like the following dataframe.
+To more accurately account for statistics within a game without the variable of time getting in the way, I had to first transform a few new features that involved normalizing kills, deaths, assists, minon kills, and monster kills by the game length. In the end, the dataframe for this final step looked like the following dataframe.
+
 
 | side   | position   | teamname      | champion   |   kills |   deaths |   assists |   teamkills |   teamdeaths |   barons |   damageshare |   damagemitigatedperminute |    wpm |   earnedgoldshare |   cspm |   vspm |   total cs |   minionkills |   monsterkills |   gamelength |         kpt |         dpt |        apt |      minpt |      monpt |
 |:-------|:-----------|:--------------|:-----------|--------:|---------:|----------:|------------:|-------------:|---------:|--------------:|---------------------------:|-------:|------------------:|-------:|-------:|-----------:|--------------:|---------------:|-------------:|------------:|------------:|-----------:|-----------:|-----------:|
@@ -61,6 +62,7 @@ In order to more accurately account for statistics within a game without the var
 | Blue   | bot        | Klanik Esport | Ezreal     |       5 |        1 |         7 |          13 |            7 |        0 |     0.441215  |                    234.372 | 0.3905 |         0.261862  | 8.4992 | 1.0796 |        370 |           345 |             25 |         2612 | 0.00191424  | 0.000382848 | 0.00267994 | 0.132083   | 0.00957121 |
 | Blue   | sup        | Klanik Esport | Karma      |       0 |        2 |        10 |          13 |            7 |        0 |     0.0595359 |                    284.15  | 1.1945 |         0.0717161 | 0.4824 | 2.4349 |         21 |            17 |              4 |         2612 | 0           | 0.000765697 | 0.00382848 | 0.00650842 | 0.00153139 |
 
+
 The model I settled on to be used here was a Random Forest Classifier which is better at sifting through data and tuning the hyperparameters to their optimal values than a Decision Tree Classifier.
 
 ### Added Features
@@ -69,20 +71,24 @@ Apart from the *One Hot Encoded* feature and the VSPM feature, every other featu
 In addition to the old features, many new features were added.
 - Damageshare: This feature
 
+
 <iframe src="assets/dmgbypercent.html" width=800 height=600 frameBorder=0></iframe>
 
 
 - Minpt
+
   
 <iframe src="assets/minionkills.html" width=800 height=600 frameBorder=0></iframe>
 
 
 - Monpt
 
+
 <iframe src="assets/junglemonsterkills.html" width=800 height=600 frameBorder=0></iframe>
 
 
 - Damagemitigatedperminute
+
 
 <iframe src="assets/dmgmiti.html" width=800 height=600 frameBorder=0></iframe>
 
