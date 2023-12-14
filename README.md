@@ -104,7 +104,8 @@ The hyperparameters I want to tune are:
 - number of estimators
     - I chose estimators to help find the right balance between computational cost and improved performance, especially for the ensemble effect.
 
-To select the best hyperparameters, I performed a GridSearchCV, which determined that the most optimal outcomes would be:
+To select the best hyperparameters, I performed a GridSearchCV, which determined that the most optimal outcomes are:
+
 **max_depth = 150**
 **min_samples_split = 5**
 **n_estimators = 80**
@@ -117,7 +118,23 @@ Recall: 0.9688855160450998
 F1: 0.9688762897894014
 Accuracy: 0.9688855160450998
 
-Although the initial model was already very strong, I still managed to improve the model by 5% compared to the baseline model. This final model improved the accuracy from 92% to 97%.
+Although the initial model was already very strong, I still managed to improve the model by 5% compared to the baseline model. This final model improved the accuracy from 92% to 97%. Much of this was likely to improve the features that were used within the final model. They helped create more defined splits between the five roles and more accurately predict the role a player played given their post-game advanced statistics. 
 
 ---
 ## Fairness Analysis
+
+While this model is incredibly accurate, I still wonder if some roles are more similar to each other than others. For supports, they are expected to have lower kills per game and higher vision scores. For junglers, find themselves with the most amount of monster kills. However, for the other laners, it becomes increasingly difficult to distinguish the three. ADCs are expected to have the highest damage share, but that may not be accurate if the game does not reach the late-game required for the ADC to power spike. As for the top and mid laners, they are both solo laners that are expected to perform similarly to each other by controlling their lanes, farming minion kills, and generally staying alive. Thus, does this final model perform better for support players and jungle players (who have very defined stats) than it does for the three lane players?
+
+Group 0 will be the junglers and the support players. Group 1 will consist of the three lane players (bot, mid, top).
+
+Null: The model's accuracy is the same for both groups, and any observed variation is due to chance.
+
+Alternative: The model's accuracy is significantly greater and more accurate for the group pertaining to the support player and the jungler player than it is for the three laners.
+
+Test Statistic: The difference in proportions of correct predictions between the two groups (Group 0 - Group 1).
+
+Significance level: 1%
+
+After running a permutation test 1,000 times, I found a p-level of 0.0, meaning that the observed value found is indeed statistically significant. Thus, I can reject the null hypothesis and assume that this model still needs a little more work in correctly distinguishing the difference between the three lanes.
+
+<iframe src="assets/tvd.html" width=800 height=600 frameBorder=0></iframe>
